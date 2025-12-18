@@ -1,0 +1,4 @@
+1) veritabanı dosyasını ("YapiDB.bak") windows hostinginizde veritabanı oluşturup oluşturduğunuz veritabanına yükleyin.
+2) script dosyalarını hostinginize yükleyin.
+3) yüklediğiniz dosyalardan "appsettings.json" dosyasına giriş yapıp, Veritabanı bağlantı bilgilerinizi güncelleyin. (server adı, veritabanı adı, veritabanına bağlı kullanıcı adı ve şifresi.)
+4) scriptin admin giriş bilgileri siteniz.com/admin/login kısmındadır. sitenizin sonuna /admin/login ekleyerek girebilirsiniz. Giriş bilgileri kullanıcı adı: admin şifre: 12345 tir. Bu giriş bilgilerini de appsettings.json dosyasından güncelleyebilirsiniz.
