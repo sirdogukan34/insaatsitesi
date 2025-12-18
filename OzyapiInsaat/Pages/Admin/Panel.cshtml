@@ -1,0 +1,178 @@
+﻿@page
+@model OzyapiInsaat.Pages.Admin.PanelModel
+@{
+    ViewData["Title"] = "Yönetim Paneli";
+}
+
+<div class="container mx-auto px-4 py-8">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-bold">Yönetim Paneli</h1>
+        <form method="post" asp-page-handler="Logout">
+            <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Çıkış Yap</button>
+        </form>
+    </div>
+
+    <!-- Genel Site Ayarları -->
+    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-6">
+        <h2 class="text-2xl font-semibold mb-4 border-b pb-2">Genel Site Ayarları</h2>
+        <form method="post" enctype="multipart/form-data" asp-page-handler="SiteSettings">
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Mevcut Logo:</label>
+                @if (!string.IsNullOrEmpty(Model.SiteSettings.LogoUrl))
+                {
+                    <img src="@Model.SiteSettings.LogoUrl" alt="Logo" class="h-12 mb-2" />
+                }
+                <label for="logoFile" class="block text-gray-700 text-sm font-bold mb-2">Logo Yükle (Değiştirmek için):</label>
+                <input type="file" name="logoFile" id="logoFile" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Mevcut Favicon:</label>
+                @if (!string.IsNullOrEmpty(Model.SiteSettings.FaviconUrl))
+                {
+                    <img src="@Model.SiteSettings.FaviconUrl" alt="Favicon" class="h-8 w-8 mb-2" />
+                }
+                <label for="faviconFile" class="block text-gray-700 text-sm font-bold mb-2">Favicon Yükle (Değiştirmek için):</label>
+                <input type="file" name="faviconFile" id="faviconFile" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+
+            <!-- Footer Metinleri -->
+            <div class="mb-4">
+                <label for="footerCopyright" class="block text-gray-700 text-sm font-bold mb-2">Footer Copyright Metni:</label>
+                <input type="text" asp-for="SiteSettings.FooterCopyright" id="footerCopyright" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            <div class="mb-6">
+                <label for="footerTagline" class="block text-gray-700 text-sm font-bold mb-2">Footer Slogan Metni:</label>
+                <input type="text" asp-for="SiteSettings.FooterTagline" id="footerTagline" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Genel Ayarları Kaydet</button>
+        </form>
+    </div>
+
+    <!-- Hizmet Yönetimi -->
+    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-6">
+        <h2 class="text-2xl font-semibold mb-4 border-b pb-2">Hizmet Yönetimi</h2>
+        <!-- Mevcut Hizmetler Listesi -->
+        <div class="mb-6">
+            @foreach (var service in Model.Services)
+            {
+                <div class="flex items-center justify-between p-2 border-b">
+                    <div>
+                        <i class="@service.IconClass text-orange-500 mr-2"></i>
+                        <span class="font-bold">@service.Title</span> - <span>@service.Description</span>
+                    </div>
+                    <div>
+                        <form method="post" asp-page-handler="DeleteService" class="inline">
+                            <input type="hidden" name="id" value="@service.Id" />
+                            <button type="submit" class="text-red-500 hover:text-red-700 text-sm font-bold py-1 px-2 rounded" onclick="return confirm('Bu hizmeti silmek istediğinizden emin misiniz?');">Sil</button>
+                        </form>
+                    </div>
+                </div>
+            }
+        </div>
+        <!-- Yeni Hizmet Ekleme Formu -->
+        <h3 class="text-xl font-semibold mb-2">Yeni Hizmet Ekle</h3>
+        <form method="post" asp-page-handler="AddService">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <input asp-for="NewService.Title" placeholder="Başlık" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700" />
+                <input asp-for="NewService.Description" placeholder="Açıklama" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700" />
+                <input asp-for="NewService.IconClass" placeholder="Font Awesome İkon Sınıfı (örn: fas fa-key)" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700" />
+            </div>
+            <button type="submit" class="mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Hizmet Ekle</button>
+        </form>
+    </div>
+
+    <!-- Proje Yönetimi -->
+    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-6">
+        <h2 class="text-2xl font-semibold mb-4 border-b pb-2">Proje Yönetimi</h2>
+        <!-- Mevcut Projeler -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+            @foreach (var project in Model.Projects)
+            {
+                <div class="relative">
+                    <img src="@project.ImageUrl" alt="@project.Title" class="w-full h-48 object-cover rounded-lg shadow-lg" />
+                    <p class="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white text-sm font-bold p-1 rounded">@project.Title</p>
+                    <form method="post" asp-page-handler="DeleteProject" class="absolute top-2 right-2">
+                        <input type="hidden" name="id" value="@project.Id" />
+                        <button type="submit" class="bg-red-500 text-white rounded-full h-8 w-8 flex items-center justify-center font-bold" onclick="return confirm('Bu projeyi silmek istediğinizden emin misiniz?');">&times;</button>
+                    </form>
+                </div>
+            }
+        </div>
+        <!-- Yeni Proje Ekle -->
+        <h3 class="text-xl font-semibold mb-2">Yeni Proje Ekle</h3>
+        <form method="post" asp-page-handler="AddProject" enctype="multipart/form-data">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <input asp-for="NewProject.Title" placeholder="Proje Başlığı" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700" />
+                <div>
+                    <label for="projectImage" class="block text-gray-700 text-sm font-bold mb-1">Proje Fotoğrafı</label>
+                    <input type="file" name="projectImage" id="projectImage" required class="shadow appearance-none border rounded w-full py-1 px-3 text-gray-700" />
+                </div>
+            </div>
+            <button type="submit" class="mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Proje Ekle</button>
+        </form>
+    </div>
+
+
+    <!-- Hakkımızda Yönetimi -->
+    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-6">
+        <h2 class="text-2xl font-semibold mb-4 border-b pb-2">Hakkımızda Yönetimi</h2>
+        <form method="post" asp-page-handler="AboutUs" enctype="multipart/form-data">
+            <div class="mb-4">
+                <label asp-for="AboutInfo.Title" class="block text-gray-700 text-sm font-bold mb-2"></label>
+                <input asp-for="AboutInfo.Title" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700" />
+            </div>
+            <div class="mb-4">
+                <label asp-for="AboutInfo.Content" class="block text-gray-700 text-sm font-bold mb-2"></label>
+                <textarea asp-for="AboutInfo.Content" rows="5" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700"></textarea>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Mevcut Fotoğraf:</label>
+                @if (!string.IsNullOrEmpty(Model.AboutInfo.ImageUrl))
+                {
+                    <img src="@Model.AboutInfo.ImageUrl" alt="Hakkımızda" class="h-32 mb-2" />
+                }
+                <label for="aboutImage" class="block text-gray-700 text-sm font-bold mb-2">Fotoğrafı Değiştir:</label>
+                <input type="file" name="aboutImage" id="aboutImage" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700" />
+            </div>
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Hakkımızda Bilgilerini Kaydet</button>
+        </form>
+    </div>
+
+    <!-- İletişim Bilgileri Yönetimi -->
+    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-6">
+        <h2 class="text-2xl font-semibold mb-4 border-b pb-2">İletişim Bilgileri</h2>
+        <form method="post" asp-page-handler="UpdateContact">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label for="CurrentContact_Address" class="block text-gray-700 text-sm font-bold mb-2">Adres</label>
+                    <input asp-for="CurrentContact.Address" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700" />
+                </div>
+                <div>
+                    <label for="CurrentContact_Phone" class="block text-gray-700 text-sm font-bold mb-2">Telefon</label>
+                    <input asp-for="CurrentContact.Phone" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700" />
+                </div>
+                <div>
+                    <label for="CurrentContact_Email" class="block text-gray-700 text-sm font-bold mb-2">E-posta</label>
+                    <input asp-for="CurrentContact.Email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700" />
+                </div>
+                <div>
+                    <label for="CurrentContact_WorkingHours" class="block text-gray-700 text-sm font-bold mb-2">Çalışma Saatleri</label>
+                    <input asp-for="CurrentContact.WorkingHours" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700" />
+                </div>
+                <div>
+                    <label for="CurrentContact_WhatsAppNumber" class="block text-gray-700 text-sm font-bold mb-2">WhatsApp</label>
+                    <input asp-for="CurrentContact.WhatsAppNumber" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700" />
+                </div>
+            </div>
+            <button type="submit" class="mt-4 bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded">
+                İletişim Bilgilerini Kaydet
+            </button>
+        </form>
+    </div>
+
+
+
+
+</div>
+
