@@ -1,38 +1,40 @@
-📽️ Admin Panelinden Görüntüler: https://www.youtube.com/watch?v=9_yBO37NJ84
+# 📽️ Admin Paneli
 
+Admin panelinden görüntüler ve detaylı özellikler aşağıda paylaşılmıştır.  
 
-⚡Admin Panel Özellikler⚡ 
+🎬 **Video Önizleme:**  
+[Admin Panelinden Görüntüler](https://www.youtube.com/watch?v=9_yBO37NJ84)
 
-✅ Logo Bölümü:
+---
 
-Dilediğiniz logoyu kolayca yükleyin
+## ⚡ Admin Panel Özellikleri ⚡
 
+### ✅ Logo Bölümü
+- Dilediğiniz logoyu kolayca yükleyin
 
-✅ Hizmetlerimiz Alanı:
+### ✅ Hizmetlerimiz Alanı
+- Hizmet ekleme ve silme
 
-Hizmet Ekleme, silme
+### ✅ Referans Proje Alanı
+- Referans proje ekleme ve silme
+- Arka plan fotoğrafı ekleme
 
+### ✅ Hakkımızda Bölümü
+- Hakkımızda kısmını düzenleyebilme
 
-✅ Referans Proje Alanı:
+---
 
-Referans proje ekleme, silme, arkaplan fotosu ekleme
+## 🛠️ Teknoloji Altyapısı
+- **ASP.NET Core**  
+- **MSSQL**
 
+---
 
-✅ Hakkımızda Bölümü:
+## 📸 Ekran Görüntüleri
 
-Hakkımızda kısmı düzenleme.
+![Admin Panel 1](https://github.com/user-attachments/assets/2c50d0be-ea43-4ee9-81f9-99b45d5397a1)  
+![Admin Panel 2](https://github.com/user-attachments/assets/424f4675-9727-49ba-8c1e-3fb7bd4263fe)
 
-
-🛠️ Teknoloji Altyapısı:
-
-ASP.NET Core
-MSSQL
-
-
-<img width="1898" height="1019" alt="76gwgsg" src="https://github.com/user-attachments/assets/2c50d0be-ea43-4ee9-81f9-99b45d5397a1" />
-<img width="1245" height="2359" alt="2975319560" src="https://github.com/user-attachments/assets/424f4675-9727-49ba-8c1e-3fb7bd4263fe" />
-
-
-
-
-
+---
+sı** ile lisanslanmıştır.  
+Dilediğiniz gibi kullanabilir ve geliştirebilirsiniz.
