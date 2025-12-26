@@ -36,5 +36,4 @@ Admin panelinden görüntüler ve detaylı özellikler aşağıda paylaşılmı�
 ![Admin Panel 2](https://github.com/user-attachments/assets/424f4675-9727-49ba-8c1e-3fb7bd4263fe)
 
 ---
-sı** ile lisanslanmıştır.  
-Dilediğiniz gibi kullanabilir ve geliştirebilirsiniz.
+
